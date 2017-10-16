@@ -4,14 +4,8 @@
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
 
-// Initialize Wifi connection to the router
-//char ssid[] = "Hogar";       char password[] = "1965195412";
-//char ssid[] = "VTR-3491474"; char password[] = "qxdn5xcLqtph";
-char ssid[] = "Pulpito";       char password[] = "t3l3c0av";
-
 // Initialize Telegram BOT
-#define BOTtoken "394732147:AAEClhJjdJZjDM61Dat1-wx1NWAm7f02cb0"  // your Bot Token (Get from Botfather)
-#define ID_ADMIN "86430579"
+#include "config.h"    // -> BOTtoken , ID_ADMIN , WIFI_SSID , WIFI_PASS
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
@@ -20,7 +14,7 @@ long Bot_lasttime;   //last time messages' scan has been done
 bool Start = false;
 
 #define ledPin LED_BUILTIN
-#define relePin 14
+#define relePin 14 // D5 en arduino
 
 void handleNewMessages(int numNewMessages) {
   //Serial.println("handleNewMessages");
@@ -81,8 +75,8 @@ void setup() {
 
   // attempt to connect to Wifi network:
   Serial.print("Connecting Wifi: ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
+  Serial.println(WIFI_SSID);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
 
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
